@@ -36,9 +36,6 @@
             "args": [],
             "problemMatcher": [],
             "dependsOrder": "sequence",
-            "dependsOn": [
-                "git fetch origin"
-            ]
         },
         {
             "label": "stgにプルリクエストを作成",
