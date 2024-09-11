@@ -2,3 +2,6 @@ k8s
 
 # cache
 .ruff_cache
+
+#TOKEN
+discord-bot-token.txt
