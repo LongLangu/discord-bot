@@ -25,7 +25,7 @@
         {
             "label": "git commit (変更をコミットしてプッシュできる状態にします)",
             "type": "shell",
-            "command": "git add . && git commit -m '${input:message}'",
+            "command": "git add . && git commit -m \"${input:message}\"",
             "args": [],
             "problemMatcher": [],
         },
