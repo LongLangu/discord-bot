@@ -1,7 +1,7 @@
 kind: Namespace
 apiVersion: v1
 metadata:
-  name: longlaugu
+  name: longlangu
   labels:
-    name: longlaugu
+    name: longlangu
     
