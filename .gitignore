@@ -1,7 +1,6 @@
-k8s
+# Secret keys
+**/*secret*
 
 # cache
 .ruff_cache
-
-#TOKEN
-discord-bot-token.txt
+**/__pycache__
