@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: longlaugu-deployment
-  namespace: longlaugu
+  name: longlangu-deployment
+  namespace: longlangu
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: longlaugu-discord-bot-pod
+      app: longlangu-discord-bot-pod
   template:
     metadata:
       labels:
-        app: longlaugu-discord-bot-pod
+        app: longlangu-discord-bot-pod
     spec:
       containers:
         - name: discord-bot-container
@@ -27,19 +27,22 @@ spec:
             - name: BOT_TOKEN
               valueFrom:
                 secretKeyRef:
-                  name: longlaugu-discord-bot-secret
+                  name: longlangu-discord-bot-secret
                   key: bot-token
                   optional: false
             - name: GEMINI_API_KEY
               valueFrom:
                 secretKeyRef:
-                  name: longlaugu-discord-bot-secret
+                  name: longlangu-discord-bot-secret
                   key: gemini-api-key
                   optional: false
           resources:
             limits:
-              cpu: "30m"
-              memory: "64Mi"
+              cpu: "60m"
+              memory: "128Mi"
+          volumeMounts:
+            - name: mount
+              mountPath: /app
         - name: git-sync
           image: ghcr.io/longlangu/arm32v7/git-sync:v1.1.1
           resources:
@@ -54,7 +57,7 @@ spec:
             - name: WEBHOOK_URL
               valueFrom:
                 secretKeyRef:
-                  name: longlaugu-discord-bot-secret
+                  name: longlangu-discord-bot-secret
                   key: discord-webhook
                   optional: false
           volumeMounts:
