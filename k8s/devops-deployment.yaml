@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: longlangu-devops-deployment
+  namespace: longlangu
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: longlangu-devops-pod
+  template:
+    metadata:
+      labels:
+        app: longlangu-devops-pod
+    spec:
+      serviceAccountName: devops-service-account
+      containers:
+        - name: devops
+          image: ghcr.io/longlangu/arm32v7/devops:latest
+          resources:
+            limits:
+              cpu: "60m"
+              memory: "64Mi"
+          env:
+            - name: REPO_URL
+              value: https://github.com/LongLangu/discord-bot.git
+            - name: BRANCH
+              value: main
+            - name: DEPLOYMENT
+              value: longlangu-deployment
