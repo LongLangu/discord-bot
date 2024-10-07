@@ -16,7 +16,6 @@ spec:
       containers:
         - name: discord-bot-container
           image: ghcr.io/longlangu/arm32v7/python-dicordbot:latest
-          command: ["python", "main.py", "-e", "production"]
           ports:
             - containerPort: 8443
           env:
