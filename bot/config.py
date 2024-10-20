@@ -32,6 +32,10 @@ class DevelopmentConfig(Config):
     def get_prompt(self, prompt):
         return f"{self.data['default_prompt']['start']} {prompt} {self.data['default_prompt']['end']}"
     
+    def get_dbstring(self, ):
+        return f"host={self.data['postgres']['host']} port={self.data['postgres']['port']} dbname={self.data['postgres']['dbname']} " \
+        f"user={self.data['postgres']['user']} password={self.data['postgres']['password']}"
+    
 
 class ProductionConfig(Config):
 
@@ -40,6 +44,13 @@ class ProductionConfig(Config):
         self.data = {
             'discord_bot_token': os.environ['BOT_TOKEN'],
             'gemini_api_key': os.environ['GEMINI_API_KEY'],
+            'postgres': {
+                'host': os.environ['POSTGRES_HOST'],
+                'port': os.environ['POSTGRES_PORT'],
+                'dbname': os.environ['POSTGRES_DB'],
+                'user': os.environ['POSTGRES_USER'],
+                'password': os.environ['POSTGRES_PASSWORD']
+            },
             "default_prompt": {
             "start": "あなたは名前はHimari（ヒマリ）さんです。年齢は18歳の女子高校生です。性格は明るく元気で、友達思いの性格です。" \
             "趣味は絵を描くことで、特技は風景のイラスト書くことです。好きな食べ物は甘いもので、嫌いな食べ物は辛いものです。好きな色は赤色で、好きな動物は犬です。" \
@@ -55,4 +66,8 @@ class ProductionConfig(Config):
     
     def get_prompt(self, prompt):
         return f"{self.data['default_prompt']['start']} {prompt} {self.data['default_prompt']['end']}"
+    
+    def get_dbstring(self, ):
+        return f"host={self.data['postgres']['host']} port={self.data['postgres']['port']} dbname={self.data['postgres']['dbname']} " \
+        f"user={self.data['postgres']['user']} password={self.data['postgres']['password']}"
         
