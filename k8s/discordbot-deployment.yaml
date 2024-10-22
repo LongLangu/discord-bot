@@ -35,6 +35,22 @@ spec:
                   name: longlangu-discord-bot-secret
                   key: gemini-api-key
                   optional: false
+            - name: POSTGRES_HOST
+              value: postgresql-service.discord-db.svc.cluster.local
+            - name: POSTGRES_PORT
+              value: "5432"
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: longlangu-discord-bot-secret
+                  key: postgres_user
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: longlangu-discord-bot-secret
+                  key: postgres_password
+            - name: POSTGRES_DB
+              value: longlangu
           resources:
             limits:
               cpu: "60m"
@@ -59,22 +75,6 @@ spec:
                   name: longlangu-discord-bot-secret
                   key: discord-webhook
                   optional: false
-            - name: POSTGRES_HOST
-              value: postgresql-service.discord-db.svc.cluster.local
-            - name: POSTGRES_PORT
-              value: "5432"
-            - name: POSTGRES_USER
-              valueFrom:
-                secretKeyRef:
-                  name: longlangu-discord-bot-secret
-                  key: postgres_user
-            - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: longlangu-discord-bot-secret
-                  key: postgres_password
-            - name: POSTGRES_DB
-              value: longlangu
           volumeMounts:
             - name: mount
               mountPath: /git/src
