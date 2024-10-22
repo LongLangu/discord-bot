@@ -6,6 +6,7 @@ from discord.ext import commands
 
 from bot.config import DevelopmentConfig, ProductionConfig
 from bot.gemini_api import Gemini
+from bot.postgre_sql import get_connection
 
 envs = {
     'development': DevelopmentConfig,
@@ -52,6 +53,15 @@ if __name__ == '__main__':
                 response = gemini.generate_content(prompt=f"ちなみに私とは{user}のことです。"+prompt, category='question')
                 message = response['candidates'][0]['content']['parts'][0]['text']
                 await ctx.send(message)
+
+    @client.command()
+    async def db_check(ctx, *prompt):
+        async with ctx.typing():
+            with get_connection(config) as conn:
+                with conn.cursor() as cur:
+                    cur.execute('SELECT * FROM t_healthcheck')
+                    colnames = [col.name for col in cur.description]
+                    await ctx.send(','.join(colnames))
 
     if env == 'development':
         client.run(config.get_discord_bot_token())
